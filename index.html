@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="description" content="" />
+    <link href="index.css" rel="stylesheet" />
+    <title>Sakura sou</title>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180" />
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png" />
+    <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json" />
+    <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9" />
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico" />
+    <meta name="theme-color" content="#712cf9" />
+
+    <!-- Custom styles for this template -->
+    <script type="text/javascript">
+        console.log("JavaScriptを実行しています");
+        var rndA = 0;
+        var rndB = 0;
+        function setImage() {
+            var imgA = document.getElementsByName('img-A')[0];
+            rndA = getRandomInt(9) + 1;
+            console.log(rndA);
+            imgA.src = "./data/apple/apple-" + rndA + ".png";
+
+            var imgB = document.getElementsByName('img-B')[0];
+            rndB = getRandomInt(9) + 1;
+            console.log(rndB);
+            imgB.src = "./data/orange/orange-" + rndB + ".png";
+        }
+        function onLoadAction() {
+            setImage();
+
+            document.body.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+        }
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+        function answerAction(ans) {
+            console.log(ans);
+            if (ans == 'eq') {
+                if (rndA == rndB) {
+                    successAlert();
+                    return;
+                }
+            }
+            if (ans == 'lt') {
+                if (rndA < rndB) {
+                    successAlert();
+                    return;
+                }
+            }
+            if (ans == 'gt') {
+                if (rndA > rndB) {
+                    successAlert();
+                    return;
+                }
+            }
+            successError();
+        }
+        function successAlert() {
+            Swal.fire({
+                title: 'せいかい',
+                icon: 'success',
+                confirmButtonText: 'とじる'
+            }).then((result) => {
+                location.reload();
+            });
+        }
+        function successError() {
+            Swal.fire({
+                title: 'ちがうよ',
+                icon: 'error',
+                confirmButtonText: 'とじる'
+            });
+        }
+    </script>
+</head>
+
+<body onload="onLoadAction();">
+    <div class="col-lg-10 mx-auto p-4 py-md-5">
+        <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+            <h1>りんごとおれんじ</h1>
+        </header>
+
+        <main>
+            <span class="fs-4">りんごは<br />
+                おおい？すくない？おなじ？</span>
+            <div class="d-flex justify-content-around align-items-center mt-4">
+                <div class="fs-5">
+                    <img name="img-A" class="img-fluid" />
+                </div>
+                <div>
+                    <button type="button" class="bg-white text-body fs-4 btn btn-secondary my-2" style="width: 120px;"
+                        onclick="answerAction('lt');">
+                        <img src="./data/symbol/less.png" style="height: 48px; width:auto;" />
+                        <br />
+                        すくない
+                    </button><br/>
+
+                    <button type="button" class="bg-white text-body fs-4 btn btn-secondary my-2" style="width: 120px;"
+                        onclick="answerAction('eq');">
+                        <img src="./data/symbol/equal.png" style="height: 48px; width:auto;" />
+                        <br />
+                        おなじ
+                    </button><br/>
+
+                    <button type="button" class="bg-white text-body fs-4 btn btn-secondary my-2" style="width: 120px;"
+                        onclick="answerAction('gt');">
+                        <img src="./data/symbol/greater.png" style="height: 48px; width:auto;" />
+                        <br />
+                        おおい
+                    </button>
+                </div>
+                <div class="fs-5">
+                    <img name="img-B" class="img-fluid" />
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-around">
+            </div>
+
+        </main>
+        <footer class="pt-2 text-muted border-top">
+            Copyright fedorax &middot; &copy; 2022
+        </footer>
+    </div>
+
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/sweetalert2.all.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+@import "./node_modules/bootstrap/scss/bootstrap";
+@import "./node_modules/sweetalert2/dist/sweetalert2.css";
+
+body {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+button {
+    border-width: 5px !important;
+}
+button:hover {
+    border-color: var(--bs-primary) !important;
+}
